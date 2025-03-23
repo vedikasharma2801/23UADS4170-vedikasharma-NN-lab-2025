@@ -1,4 +1,5 @@
 MNIST Handwritten Digit Classification
+
 Objective
 This project aims to develop a deep learning model using TensorFlow to classify handwritten digits from the MNIST dataset. The model is a fully connected neural network (Multi-Layer Perceptron) that learns to recognize digits (0-9) based on their pixel values.
 
