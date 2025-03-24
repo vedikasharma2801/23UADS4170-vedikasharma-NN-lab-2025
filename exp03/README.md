@@ -58,3 +58,34 @@ After training for 10 epochs, the model achieves:
 - **Test Accuracy:** ~97%
 
 The model effectively classifies handwritten digits with high accuracy, demonstrating the power of deep learning for image recognition tasks.
+
+---
+
+## Comments on the Experiment
+
+### Strengths
+- Basic Neural Network Implementation
+- Dataset Handling
+- Normalization and One-Hot Encoding
+- Optimization and Loss Function
+- Evaluation:
+The implementation of accuracy calculation using TensorFlow operations is well-executed, providing reliable performance metrics.
+
+### Limitations
+-**Use of TensorFlow 1.x:**
+The code uses tf.compat.v1 and tf.disable_v2_behavior(), which limits compatibility with modern TensorFlow versions. Migrating to TensorFlow 2.x would ensure long-term support and more efficient development.
+
+-**Random Initialization of Weights and Biases:**
+tf.random_normal may not be the best choice for initializing weights. Using techniques like Xavier or He initialization could improve training stability and convergence.
+
+-**Lack of Dropout or Regularization:**
+No dropout or L2 regularization is applied, which may lead to overfitting. Implementing these techniques can enhance generalization.
+
+-**Limited Error Handling:**
+The use of tf.errors.OutOfRangeError for catching the end of the dataset is not optimal. Using for batch_x, batch_y in train_data: would be more Pythonic.
+
+-**Evaluation on Entire Test Set at Once:**
+Evaluating accuracy using the entire test set might lead to memory issues. It’s recommended to compute accuracy in batches.
+
+-**Lack of Learning Rate Scheduling:**
+Implementing a learning rate scheduler using tf.keras.optimizers.schedules can significantly improve training convergence.
