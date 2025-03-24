@@ -9,50 +9,49 @@ This project aims to develop a deep learning model using TensorFlow to classify 
 The model consists of:
 
 - **Input Layer:** 784 neurons (each representing a pixel in the 28x28 image)
-- **Hidden Layer 1:** 128 neurons with ReLU activation
-- **Hidden Layer 2:** 64 neurons with ReLU activation
+- **Hidden Layer 1:** 128 neurons with Sigmoid activation
+- **Hidden Layer 2:** 64 neurons with Sigmoid activation
 - **Output Layer:** 10 neurons (one for each digit class) with softmax activation
 - **Loss Function:** Softmax cross-entropy
 - **Optimizer:** Adam Optimizer
 - **Batch Size:** 100
-- **Epochs:** 10
+- **Epochs:** 20
 
 ---
 
 ## Description of the Code
 
 ### 1. Importing Required Libraries
-- TensorFlow for deep learning
-- NumPy for numerical operations
-- TensorFlow Datasets for loading MNIST data
+- **TensorFlow:** For deep learning and neural network operations
+- **NumPy:** For numerical computations
+- **TensorFlow Datasets:** For loading the MNIST dataset
 
 ### 2. Loading & Preprocessing Data
-- Load MNIST dataset using `tfds.load()`
-- Normalize images (convert pixel values from 0-255 to 0-1)
-- Flatten images to 1D vectors (28x28 → 784)
-- One-hot encode labels (convert integer labels into binary vectors)
-- Create batches of 100 images for efficient training
+- Load the MNIST dataset using `tf.keras.datasets.mnist.load_data()`
+- Reshape images from 28x28 to 1D vectors (28x28 → 784)
+- Normalize pixel values to a range of 0 to 1
+- Convert labels to one-hot encoding using `np.eye()`
 
 ### 3. Building the Neural Network
-- Define weight and bias tensors
-- Implement forward propagation using matrix multiplications and activation functions
-- Compute the loss using softmax cross-entropy
-- Optimize the weights using the Adam optimizer
+- Define placeholders for inputs and outputs using `tf.compat.v1.placeholder`
+- Initialize weights and biases using `tf.Variable`
+- Perform feedforward propagation using matrix multiplications and sigmoid activation functions
+- Compute the logits for the output layer
 
 ### 4. Training the Model
-- Run training for 10 epochs
-- Process batches dynamically using TensorFlow’s dataset API
-- Compute the average loss per epoch
+- Compute the loss using `tf.nn.softmax_cross_entropy_with_logits`
+- Optimize using the Adam optimizer with a learning rate of 0.01
+- Perform batch training for 20 epochs
 
 ### 5. Performance Evaluation
-- Evaluate model accuracy on the test set
-- Measure how well the model generalizes to unseen data
+- Calculate the accuracy using the correct predictions compared to actual labels
+- Evaluate the model on both training and test datasets
 
 ---
 
 ## Performance Evaluation
 
-After training for 10 epochs, the model achieves:
+After training for **20 epochs**, the model achieves:
 
 - **Training Accuracy:** ~98%
 - **Test Accuracy:** ~97%
@@ -63,29 +62,36 @@ The model effectively classifies handwritten digits with high accuracy, demonstr
 
 ## Comments on the Experiment
 
-### Strengths
-- Basic Neural Network Implementation
-- Dataset Handling
-- Normalization and One-Hot Encoding
-- Optimization and Loss Function
-- Evaluation:
-The implementation of accuracy calculation using TensorFlow operations is well-executed, providing reliable performance metrics.
+### ✅ **Strengths**
+- Clear Neural Network Implementation
+- Efficient Dataset Loading and Preprocessing
+- Proper Use of TensorFlow Operations
+- Effective Performance Metrics Evaluation
 
-### Limitations
--**Use of TensorFlow 1.x:**
-The code uses tf.compat.v1 and tf.disable_v2_behavior(), which limits compatibility with modern TensorFlow versions. Migrating to TensorFlow 2.x would ensure long-term support and more efficient development.
+### ⚠️ **Limitations & Suggested Improvements**
+1. **TensorFlow 1.x Compatibility:**
+    - The code uses `tf.compat.v1` and disables eager execution, limiting compatibility with modern TensorFlow 2.x.
+    - Consider migrating to TensorFlow 2.x using `tf.keras.Sequential` for simpler code.
 
--**Random Initialization of Weights and Biases:**
-tf.random_normal may not be the best choice for initializing weights. Using techniques like Xavier or He initialization could improve training stability and convergence.
+2. **Weight Initialization:**
+    - Using `tf.random.truncated_normal` may result in poor training convergence.
+    - Implement Xavier or He initialization for better performance.
 
--**Lack of Dropout or Regularization:**
-No dropout or L2 regularization is applied, which may lead to overfitting. Implementing these techniques can enhance generalization.
+3. **Lack of Regularization:**
+    - No dropout or L2 regularization is used.
+    - Add `tf.nn.dropout` or L2 regularization to prevent overfitting.
 
--**Limited Error Handling:**
-The use of tf.errors.OutOfRangeError for catching the end of the dataset is not optimal. Using for batch_x, batch_y in train_data: would be more Pythonic.
+4. **Evaluation Method:**
+    - Evaluating accuracy on the entire test set at once may cause memory issues.
+    - Perform batch-wise evaluation for more efficient memory usage.
 
--**Evaluation on Entire Test Set at Once:**
-Evaluating accuracy using the entire test set might lead to memory issues. It’s recommended to compute accuracy in batches.
+5. **Learning Rate Scheduling:**
+    - A constant learning rate might not be optimal.
+    - Implement learning rate decay using `tf.keras.optimizers.schedules`.
 
--**Lack of Learning Rate Scheduling:**
-Implementing a learning rate scheduler using tf.keras.optimizers.schedules can significantly improve training convergence.
+---
+
+## Conclusion
+
+This project successfully implemented a neural network using TensorFlow for MNIST digit classification. By making the suggested improvements, the model can achieve even better accuracy and generalization. Happy coding!
+
