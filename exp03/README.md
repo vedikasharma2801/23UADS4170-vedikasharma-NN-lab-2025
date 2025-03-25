@@ -1,47 +1,97 @@
-*OBJECTIVE*
-The objective of this code is to implement a simple neural network using NumPy to classify the "moons" dataset. The model is a basic feedforward neural network trained using backpropagation without any deep learning frameworks like TensorFlow or PyTorch.
+# MNIST Handwritten Digit Classification
 
-*Description of the Model*
+## Objective
+This project aims to develop a deep learning model using TensorFlow to classify handwritten digits from the MNIST dataset. The model is a fully connected neural network (Multi-Layer Perceptron) that learns to recognize digits (0-9) based on their pixel values.
+
+---
+
+## Description of the Model
 The model consists of:
-- An input layer with 2 features.
-- One hidden layer with 8 neurons using the sigmoid activation function.
-- An output layer with 1 neuron using the sigmoid activation function.
-- Training is done using the mean squared error (MSE) loss and gradient descent.
 
-The dataset used is the "moons" dataset from sklearn.datasets, which consists of two interleaving half-circle clusters, making it a non-linearly separable problem.
+- **Input Layer:** 784 neurons (each representing a pixel in the 28x28 image)
+- **Hidden Layer 1:** 128 neurons with Sigmoid activation
+- **Hidden Layer 2:** 64 neurons with Sigmoid activation
+- **Output Layer:** 10 neurons (one for each digit class) with softmax activation
+- **Loss Function:** Softmax cross-entropy
+- **Optimizer:** Adam Optimizer
+- **Batch Size:** 100
+- **Epochs:** 20
 
-*Description of Code*
-1. *Data Preparation*
-   - Generates the moons dataset with noise.
-   - Splits the dataset into training and test sets.
-   - Standardizes the features for better training performance.
+---
 
-2. *Model Initialization*
-   - Defines model parameters such as input size, hidden layer size, and output size.
-   - Initializes weights and biases with random values.
+## Description of the Code
 
-3. *Training Process*
-   - Implements forward propagation using the sigmoid activation function.
-   - Computes loss using mean squared error (MSE).
-   - Performs backpropagation to compute gradients and update weights and biases.
-   - Runs for 500 epochs with weight updates at each iteration.
-   - Prints the loss every 100 epochs to track progress.
+### 1. Importing Required Libraries
+- **TensorFlow:** For deep learning and neural network operations
+- **NumPy:** For numerical computations
+- **TensorFlow Datasets:** For loading the MNIST dataset
 
-4. *Evaluation*
-   - Computes predictions on the test set.
-   - Rounds the sigmoid output to get binary classifications.
-   - Computes accuracy as the percentage of correctly classified points.
-   - Prints final accuracy and predictions.
+### 2. Loading & Preprocessing Data
+- Load the MNIST dataset using `tf.keras.datasets.mnist.load_data()`
+- Reshape images from 28x28 to 1D vectors (28x28 → 784)
+- Normalize pixel values to a range of 0 to 1
+- Convert labels to one-hot encoding using `np.eye()`
 
-*Performance Evaluation*
-- The model achieves reasonable accuracy on the test set, demonstrating its ability to classify the moon dataset.
-- Since the sigmoid activation and MSE loss are used, the model may suffer from vanishing gradient issues.
-- Performance could be improved using cross-entropy loss and better activation functions like ReLU for hidden layers.
+### 3. Building the Neural Network
+- Define placeholders for inputs and outputs using `tf.compat.v1.placeholder`
+- Initialize weights and biases using `tf.Variable`
+- Perform feedforward propagation using matrix multiplications and sigmoid activation functions
+- Compute the logits for the output layer
 
-*MY COMMENTS*
-- The implementation effectively demonstrates the principles of neural networks without relying on deep learning frameworks.
-- Using StandardScaler helps improve convergence and model performance.
-- The choice of MSE as the loss function is suboptimal for classification; using binary cross-entropy could improve results.
-- Increasing the number of hidden neurons or adding additional layers could enhance performance.
-- Implementing early stopping or batch gradient descent could further optimize training.
-- Transitioning this implementation to TensorFlow or PyTorch would make it more scalable for larger datasets.
+### 4. Training the Model
+- Compute the loss using `tf.nn.softmax_cross_entropy_with_logits`
+- Optimize using the Adam optimizer with a learning rate of 0.01
+- Perform batch training for 20 epochs
+
+### 5. Performance Evaluation
+- Calculate the accuracy using the correct predictions compared to actual labels
+- Evaluate the model on both training and test datasets
+
+---
+
+## Performance Evaluation
+
+After training for **20 epochs**, the model achieves:
+
+- **Training Accuracy:** ~98%
+- **Test Accuracy:** ~97%
+
+The model effectively classifies handwritten digits with high accuracy, demonstrating the power of deep learning for image recognition tasks.
+
+---
+
+## Comments on the Experiment
+
+### ✅ **Strengths**
+- Clear Neural Network Implementation
+- Efficient Dataset Loading and Preprocessing
+- Proper Use of TensorFlow Operations
+- Effective Performance Metrics Evaluation
+
+### ⚠️ **Limitations & Suggested Improvements**
+1. **TensorFlow 1.x Compatibility:**
+    - The code uses `tf.compat.v1` and disables eager execution, limiting compatibility with modern TensorFlow 2.x.
+    - Consider migrating to TensorFlow 2.x using `tf.keras.Sequential` for simpler code.
+
+2. **Weight Initialization:**
+    - Using `tf.random.truncated_normal` may result in poor training convergence.
+    - Implement Xavier or He initialization for better performance.
+
+3. **Lack of Regularization:**
+    - No dropout or L2 regularization is used.
+    - Add `tf.nn.dropout` or L2 regularization to prevent overfitting.
+
+4. **Evaluation Method:**
+    - Evaluating accuracy on the entire test set at once may cause memory issues.
+    - Perform batch-wise evaluation for more efficient memory usage.
+
+5. **Learning Rate Scheduling:**
+    - A constant learning rate might not be optimal.
+    - Implement learning rate decay using `tf.keras.optimizers.schedules`.
+
+---
+
+## Conclusion
+
+This project successfully implemented a neural network using TensorFlow for MNIST digit classification. By making the suggested improvements, the model can achieve even better accuracy and generalization. Happy coding!
+
