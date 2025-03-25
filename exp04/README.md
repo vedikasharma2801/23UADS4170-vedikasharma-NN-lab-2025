@@ -1,5 +1,3 @@
-# README.md
-
 ## Objective
 WAP to evaluate the performance of an implemented three-layer neural network with variations in activation functions, size of hidden layer, learning rate, batch size, and number of epochs.
 
