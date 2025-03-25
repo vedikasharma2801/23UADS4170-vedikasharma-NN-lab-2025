@@ -62,13 +62,13 @@ The model effectively classifies handwritten digits with high accuracy, demonstr
 
 ## Comments on the Experiment
 
-### ✅ **Strengths**
+### **Strengths**
 - Clear Neural Network Implementation
 - Efficient Dataset Loading and Preprocessing
 - Proper Use of TensorFlow Operations
 - Effective Performance Metrics Evaluation
 
-### ⚠️ **Limitations & Suggested Improvements**
+###  **Limitations & Suggested Improvements**
 1. **TensorFlow 1.x Compatibility:**
     - The code uses `tf.compat.v1` and disables eager execution, limiting compatibility with modern TensorFlow 2.x.
     - Consider migrating to TensorFlow 2.x using `tf.keras.Sequential` for simpler code.
@@ -90,8 +90,3 @@ The model effectively classifies handwritten digits with high accuracy, demonstr
     - Implement learning rate decay using `tf.keras.optimizers.schedules`.
 
 ---
-
-## Conclusion
-
-This project successfully implemented a neural network using TensorFlow for MNIST digit classification. By making the suggested improvements, the model can achieve even better accuracy and generalization. Happy coding!
-
