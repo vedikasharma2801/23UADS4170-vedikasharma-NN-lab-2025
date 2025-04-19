@@ -51,18 +51,15 @@ This project utilizes the **ResNet-18** architecture, a popular convolutional ne
 
 ---
 
-## 💬 My Comments
-
-The modular structure of the training function makes it easy to extend and experiment with different models or training strategies.
+##  My Comments
 
 ### Suggestions for Future Improvement:
 - Add **test set evaluation**
 - Experiment with deeper networks (e.g., **ResNet-50**)
 - Implement **learning rate scheduling** or **early stopping**
 
----
 
-## ⚠️ Model Limitations
+## Model Limitations
 
 - If the dataset has **fewer images** or **uneven class distribution**, the model might get confused.
 - ResNet-18 is **not very deep**; while effective, better-performing models exist.
