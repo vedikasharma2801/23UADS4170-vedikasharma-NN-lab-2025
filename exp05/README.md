@@ -93,25 +93,13 @@ plt.show()
 
 ## My Comments
 
-### 1. Adam Optimizer Performs Better than SGD
-- The curves corresponding to `Opt=adam` consistently reach **higher validation accuracy** compared to `Opt=sgd`.
-- **Adam** adapts the learning rate dynamically, leading to faster and more stable convergence.
+### Adam gave better results than SGD — faster and more accurate.
 
-### 2. Lower Regularization (0.0001) Leads to Higher Accuracy
-- Models with `Reg=0.0001` perform **better than** those with `Reg=0.001`.
-- **Higher regularization (0.001)** imposes more constraints, possibly restricting the model’s learning ability.
+### Regularization of 0.0001 worked better than 0.001.
 
-### 3. Batch Size 64 vs. 32
-- **Larger batch size (64)** stabilizes training but may lead to **slightly lower validation accuracy** compared to batch size 32.
-- **Smaller batch size (32)** allows for more weight updates per epoch, which can help generalization.
+### Batch size 32 gave slightly better accuracy than 64.
 
-### 5.Best Performing Configuration
-Based on the validation accuracy trends, the best-performing models have:
- **Filter Size = 5**  
- **Regularization = 0.0001**  
- **Batch Size = 32**  
- **Optimizer = Adam**  
+### Filter size 5x5 performed better than 3x3.
 
-These settings yield the **highest validation accuracy (~90%)** after 5 epochs.
-
+### Best setup: Filter Size = 5, Reg = 0.0001, Batch Size = 32, Optimizer = Adam — got around 90% accuracy.
 
